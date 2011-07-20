@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>21.0</apiVersion>
+    <description>This page taps into the Metaphone controller and allows you to submit jobs to process fields for metaphone translations</description>
+    <label>Metaphone</label>
+</ApexPage>

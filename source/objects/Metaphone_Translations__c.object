@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Metaphone_String__c</fullName>
+        <externalId>false</externalId>
+        <label>Metaphone String</label>
+        <length>80</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Original_String__c</fullName>
+        <description>Holds the  original string that hasn&apos;t been processed</description>
+        <externalId>false</externalId>
+        <label>Original String</label>
+        <length>80</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Metaphone Translation</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Original_String__c</columns>
+        <columns>Metaphone_String__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All_With_Equiv</fullName>
+        <columns>Original_String__c</columns>
+        <columns>Metaphone_String__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Metaphone_String__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>All With Equiv</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Without_Equiv</fullName>
+        <columns>Original_String__c</columns>
+        <columns>Metaphone_String__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Metaphone_String__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>All Without Equiv</label>
+    </listViews>
+    <nameField>
+        <displayFormat>MP-{000000}</displayFormat>
+        <label>Metaphone Translation</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Metaphone Translations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

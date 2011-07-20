@@ -1,0 +1,122 @@
+<apex:page controller="Metaphone" tabStyle="Metaphone_Translations__c" showHeader="true" sidebar="false">
+    <style>
+       .existingError { color: red; font-weight: strong;}
+   </style>
+   
+    <apex:form id="theForm" >
+        <apex:messages id="myMessage" styleClass="existingError"/>
+        <apex:tabPanel switchType="client" selectedTab="value" id="theTabPanel">
+            
+            <!-- ================Get Metaphone Value Tab==================== -->
+            <apex:tab label="Get Metaphone" name="value" id="tabOne">
+                <br/><br/>
+                <apex:outputLabel value="Value to Convert: "/>
+                <apex:inputText value="{!valueString}"/>
+                <apex:commandButton value="Convert" 
+                                    action="{!convert}"
+                                    reRender="theForm"/>
+                <br/><br/>
+                <apex:outputLabel value="Converted Value: "/>
+                <apex:outputText value="{!convertedValue}"/>
+            </apex:tab>
+            <!-- =======================Match Tab=========================== -->
+            <apex:tab label="Match" name="match" id="tabTwo">
+                <h1>All four fields are Required to make a match</h1><br/>
+                <apex:panelGrid columns="2">
+                    <apex:outputLabel value="Object to process data on (API Name): "/>
+                    <apex:inputText value="{!MatchObject}" />                    
+                    <apex:outputLabel value="Field to Return: "/>
+                    <apex:inputText value="{!MatchFieldToReturn}" />                    
+                    <apex:outputLabel value="Field with Metaphone Translations (API Name): "/>
+                    <apex:inputText value="{!MatchFieldtoCompare}"/>
+                    <apex:outputLabel value="Value to Match"/>
+                    <apex:inputText value="{!MatchValuetoCompare}"/>
+                </apex:panelGrid>                      
+                <apex:commandButton value="Match Value" 
+                                    action="{!getMatchingList}"
+                                    reRender="theForm"/>
+                <apex:panelGrid >
+                    <br/><br/>
+                    <apex:dataTable value="{!matchList}" var="ml" >
+                       <apex:column headerValue="Matched Values">
+                            <apex:outputText value="{!ml}"/>
+                       </apex:column>       
+                    </apex:dataTable>                    
+                </apex:panelGrid>                            
+            </apex:tab>
+            
+            <!-- =======================Process Tab=========================== -->
+            <apex:tab label="Process" name="process" id="tabThree">
+                <h1>All three fields are required</h1><br/>
+                <apex:panelGrid columns="2">
+                    <apex:outputLabel value="Object to process data on (API Name): "/>
+                    <apex:inputText value="{!ProcessObject}"/>
+                    <apex:outputLabel value="Field to Translate (API Name): "/>
+                    <apex:inputText value="{!ProcessFieldToTranslate}"/>
+                    <apex:outputLabel value="Field to Store Translations (API Name): "/>
+                    <apex:inputText value="{!ProcessStorageField}"/>
+                </apex:panelGrid>                                     
+                <apex:commandButton value="Process Metaphone Fields" 
+                                    action="{!process}" 
+                                    onclick="alert('This tool is limited in the number of records it can process.  You may need to run this multiple times.')"
+                                    reRender="theForm"/>
+                                
+                <br/><br/>
+                <apex:panelGrid columns="2">
+                    <apex:outputLabel value="# Records With no Metaphone:"/>
+                    <apex:outputText value="{!unprocessedCount}"/>
+                    <apex:outputLabel value="# Records With Metaphone:"/>
+                    <apex:outputText value="{!processedCount}"/>
+                </apex:panelGrid>                
+                <apex:commandButton value="Update Counts" 
+                                    action="{!countProcessed}"                                     
+                                    reRender="theForm"/>
+                <br/><br/>
+                <h1>Apex Jobs</h1><br/>
+                <apex:commandButton value="{!IF(showJobs,'Hide Jobs','Show Jobs')}" 
+                                    action="{!toggleShowJobs}"                                     
+                                    reRender="theForm"/>
+                <apex:outputPanel rendered="{!showJobs}">
+                    <b>***Refresh the below window by right clicking and selecting Reload Frame (Chrome), Reload (FireFox) or Refresh (IE - but why are you using IE anyway?)</b>
+                    <apex:iframe src="/apexpages/setup/listAsyncApexJobs.apexp?" id="JobsFrame1" frameborder="true" scrolling="true" height="400"/>
+                </apex:outputPanel>
+            </apex:tab>
+            
+            
+            <!-- =======================Reset Tab=========================== -->
+            <apex:tab label="Reset" name="reset" id="tabFour">
+                <h1>Both fields are required to perform a reset</h1>
+                <apex:panelGrid columns="2">
+                    <apex:outputLabel value="Object to reset data on (API Name): "/>
+                    <apex:inputText value="{!ResetObject}"/>
+                    <apex:outputLabel value="Field to Clear (API Name): "/>
+                    <apex:inputText value="{!ResetFieldToClear}"/>
+                </apex:panelGrid>                   
+                <apex:commandButton value="Reset Metaphone Field" 
+                                    action="{!reset}"
+                                    onclick="alert('Note:A maximum of 10,000 records will be processed per click. Click OK to continue')"
+                                    reRender="theForm"/>
+                <br/><br/>
+                <apex:panelGrid columns="2">
+                    <apex:outputLabel value="# Records With no Metaphone:"/>
+                    <apex:outputText value="{!unprocessedCount}"/>
+                    <apex:outputLabel value="# Records With Metaphone:"/>
+                    <apex:outputText value="{!processedCount}"/>
+                </apex:panelGrid>
+                <apex:commandButton value="Update Counts" 
+                                    action="{!countResetProcessed}"                                     
+                                    reRender="theForm"/>
+                <br/><br/>
+                <h1>Apex Jobs</h1><br/>
+                <apex:commandButton value="{!IF(showJobs,'Hide Jobs','Show Jobs')}" 
+                                    action="{!toggleShowJobs}"                                     
+                                    reRender="theForm"/>
+                
+                <apex:outputPanel rendered="{!showJobs}">
+                    <b>***Refresh the below window by right clicking and selecting Reload Frame (Chrome), Reload (FireFox) or Refresh (IE - but why are you using IE anyway?)</b>
+                    <apex:iframe src="/apexpages/setup/listAsyncApexJobs.apexp?" id="JobsFrame2" frameborder="true" scrolling="true" height="400"/>
+                </apex:outputPanel>
+            </apex:tab>
+        </apex:tabPanel>     
+    </apex:form>
+</apex:page>

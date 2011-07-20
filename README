@@ -1,0 +1,11 @@
+Apex Metaphone
+
+URL: http://www.cloudspokes.com/challenge_detail.html?contestID=186
+Challenge end date: Tue May 17 01:00:00 GMT 2011
+Description
+===========
+A client needs to do some matching on a field based on phonetic pattern matching. Currently they utilize the SoundEx algorithm which is dated. Metaphone will provide a more accurate phonetic pattern matching algorithm to improve matching for bad spellers.
+
+Requirements
+============
+Implement only Metaphone not Metaphone 3 or Double Metaphone. English is the only language that must be supported. The diphthong matching database will be created as a custom object with data. Your method should return a list of possible matches based on the inputed string.
